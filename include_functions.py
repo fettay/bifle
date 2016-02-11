@@ -1,4 +1,5 @@
 from order import Order
+from warehouse import Warehouse
 DEBUG = False
 
 def read_input_file(file_name):
@@ -75,5 +76,19 @@ def populate_orders(order_locations, order_items):
    for l, i in zip(order_locations, order_items):
       id_ += 1
       items.append(Order(id, i , l))
+   return items
+
+def populate_warehouses(warehouse_locations, warehouse_stock):
+   """
+   create the warehouses
+   :param warehouses_locations
+   :param warehouses_stock
+   return list of warehouses
+   """
+   id_ = 0
+   items = []
+   for l, s in zip(warehouse_locations, warehouse_stock):
+      id_ += 1
+      items.append(Warehouse(id, l , s))
    return items
 

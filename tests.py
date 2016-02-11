@@ -8,7 +8,7 @@ if __name__ == "__main__":
    data = read_input_file('data/busy_day.in')
    read_input_file('data/mother_of_all_warehouses.in')
    read_input_file('data/redundancy.in')
-   liste = populate_orders(data[6], data[7])
+   liste = populate_warehouses(data[4], data[5])
 
    test_item = Item(123, 100)
    test_item2 = Item(123, 1)
