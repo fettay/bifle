@@ -2,7 +2,13 @@ from order import Order
 from warehouse import Warehouse
 from drone import Drone
 from item import Item
+import numpy as np
+
 DEBUG = False
+
+
+def distance(A, B):
+   return np.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
 
 def read_input_file(file_name):
    """

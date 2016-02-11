@@ -10,9 +10,6 @@ from order import Order
 #warehouse_list
 #order_list
 
-def distance(A, B):
-    return np.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
-
 if __name__ == "__main__":
 
    order_list, warehouse_list, drone_list, items_list = populate_all('data/busy_day.in')

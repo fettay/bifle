@@ -1,4 +1,9 @@
+from include_functions import *
+import numpy as np
+
+
 class Drone(object):
+
    def __init__(self, id, max_weight, initial_position = [0, 0]):
       self.position = initial_position  # [x, y]
       self.current_weight = 0
@@ -21,6 +26,7 @@ class Drone(object):
          self.payload.append(item)
          if from_warehouse:
             from_warehouse.take_item(item.id)
+         return 1
 
    def load_order_from_warehouse(self, order, from_warehouse):
       for item in order.items:
@@ -32,10 +38,12 @@ class Drone(object):
             self.payload.append(item)
             if from_warehouse:
                from_warehouse.take_item(item.id)
+      return 1
 
    def deliver_order(self, to_order):
       for item in to_order.items:
          self.deliver_item(item, to_order)
+      return 1
 
    def deliver_item(self, item, to_order):
       try:
@@ -51,4 +59,10 @@ class Drone(object):
    def move_to(self, new_position):
       assert isinstance(new_position, list)
       assert 2 == len(new_position)
+      distance = np.floor(self.distance(self.position, new_position))
       self.position = new_position
+      return distance
+
+   def distance(self, A, B):
+      return np.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
+
