@@ -1,5 +1,5 @@
+from order import Order
 DEBUG = False
-
 
 def read_input_file(file_name):
    """
@@ -61,3 +61,19 @@ def write_output_file(file_name, data):
    with open(file_name, 'w') as file_handle:
       # TODO: implement this
       file_name.close()
+
+
+def populate_orders(order_locations, order_items):
+   """
+      create the orders
+      :param order_locations
+      :param order_items
+      return list of orders
+   """
+   id_ = 0
+   items = []
+   for l, i in zip(order_locations, order_items):
+      id_ += 1
+      items.append(Order(id, i , l))
+   return items
+

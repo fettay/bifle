@@ -5,9 +5,10 @@ from item import Item
 
 if __name__ == "__main__":
    read_input_file('data/ex.in')
-   read_input_file('data/busy_day.in')
+   data = read_input_file('data/busy_day.in')
    read_input_file('data/mother_of_all_warehouses.in')
    read_input_file('data/redundancy.in')
+   liste = populate_orders(data[6], data[7])
 
    test_item = Item(123, 100)
    test_item2 = Item(123, 1)
@@ -23,4 +24,3 @@ if __name__ == "__main__":
    print test_drone
    test_drone.add_item(test_item2, None)
    print test_drone
-
