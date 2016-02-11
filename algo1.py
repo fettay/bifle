@@ -2,36 +2,50 @@ from include_functions import *
 from drone import Drone
 from item import Item
 
+# Need:
+#drone_list
+#warehouse_list
+#order_list
 for drone in drone_list:
     if drone.is_available:
         drone.is_available = False
-        
+
         # Moves the drone to the nearest warehouse
-        dist_warehouses = [dist(drone.position, wh.position) for wh in warehouses]
-        wh_min = warehouses[np.argmin(dist_warehouses)]
-        drone.move(wh_min.position)
-        
-        # Creates a list with all the possible orders that we can fill in the drone
+        dist_warehouses = [distance(drone.position, wh.position) for wh in warehouse_list]
+        wh_closest = warehouse_list[np.argmin(dist_warehouses)]
+        drone.move_to(wh_closest.position)
+        wh_closest.drones.append(drone.id)
+
+        #To improve: Don't put all the drones in the same wh
+
+        #To improve:
+
+        # Create a list with all the possible orders that we can fill in the drone
         possible_orders = []
-        for order in orders:
+        for order in order_list:
             weight = order.weight()
-            if warehouse.has(order.items) and drone.weight + weight <= max_payload:
+            if warehouse.has(order.items) and drone.current_weight + weight <= drone.max_weight:
                 possible_orders.append(order)
-          
+
         # Sort the possible orders by their distance to the drone
-        possible_orders.sort(key=dist(self.position, drone.position), reverse=True)
-        
+        possible_orders.sort(key=lambda x: distance(x.position, drone.position), reverse=False)
+
         # Fill the drone with the orders one by one, while it is possible
         i = 0
         orders_to_deliver = []
-        while drone.weight <= max_payload and i < len(possible_orders):
-            if drone.weight + possible_orders[i].weight() <= max_payload:
-                drone.load(possible_orders[i])
+        while drone.current_weight <= drone.max_weight and i < len(possible_orders):
+            if drone.current_weight + possible_orders[i].weight() <= drone.max_weight:
+                drone.load_order_from_warehouse(possible_orders[i], wh_closest)
                 orders_to_deliver.append(possible_orders[i])
             i += 1
-        
+
         # Delivers the orders one by one
         for order in orders_to_deliver:
-            drone.deliver(order)
-        
+            drone.move_to(order.position)
+            drone.deliver_order(order)
+
         drone.is_available = True
+
+def distance(A, B):
+    return np.sqrt((A[0] - B[0])^2 + (A[1] - B[1])^2)
+
