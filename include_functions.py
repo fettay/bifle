@@ -77,7 +77,7 @@ def populate_orders(order_locations, order_items):
    items = []
    for l, i in zip(order_locations, order_items):
       id_ += 1
-      items.append(Order(id, i , l))
+      items.append(Order(id_, i , l))
    return items
 
 def populate_warehouses(warehouse_locations, warehouse_stock):
@@ -91,13 +91,15 @@ def populate_warehouses(warehouse_locations, warehouse_stock):
    items = []
    for l, s in zip(warehouse_locations, warehouse_stock):
       id_ += 1
-      items.append(Warehouse(id, l , s))
+      items.append(Warehouse(id_, l , s))
    return items
 
 def populate_drones(drones, max_payload, warehouse):
+   id_ = -1
    items = []
    for i in xrange(drones):
-      items.append(Drone(max_payload, warehouse.position))
+      id_ += 1
+      items.append(Drone(id_, max_payload, warehouse.position))
    return items
 
 def populate_items(product_weights):
@@ -106,10 +108,19 @@ def populate_items(product_weights):
       items.append(Item(i, j))
    return items
 
+def populate_order_items(items, product_weights):
+   res = []
+   for i in items:
+      tmp = []
+      for j in i:
+         tmp.append(Item(j, product_weights[j]))
+      res.append(tmp)
+   return res
+
 def populate_all(input_file):
    data = read_input_file(input_file)
    items = populate_items(data[8])
-   orders = populate_orders(data[6], items)
+   orders = populate_orders(data[6], populate_order_items(data[7], data[8]))
    warehouses = populate_warehouses(data[4], data[5])
    drones = populate_drones(data[1], data[3], warehouses[0])
    items = populate_items(data[8])

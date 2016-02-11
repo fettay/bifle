@@ -13,6 +13,9 @@ if __name__ == "__main__":
    orders, warehouses, drones, items = populate_all('data/busy_day.in')
 
 
+
+   return
+
    test_item = Item(123, 100)
    test_item2 = Item(123, 1)
    test_drone = Drone(200)

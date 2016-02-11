@@ -8,7 +8,7 @@ class Warehouse:
 		self.stock = {}
 		self.id  = id
 		self.drones = []
-		for i, j in zip(range(1, len(stock)), stock):
+		for i, j in zip(range(0, len(stock)), stock):
 			self.stock[i] = j
 
 	def has(self, items_list):
