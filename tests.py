@@ -11,14 +11,16 @@ if __name__ == "__main__":
 
    test_item = Item(123, 100)
    test_item2 = Item(123, 1)
-   test_drone = Drone(100)
-   print test_drone.location
+   test_drone = Drone(200)
+   print test_drone
    test_drone.move_to([10, 10])
-   print test_drone.location
+   print test_drone
 
    test_drone.add_item(test_item, None)
-   print test_drone.current_weight
+   test_drone.add_item(test_item, None)
+   print test_drone
    test_drone.deliver_item(test_item, None)
+   print test_drone
    test_drone.add_item(test_item2, None)
-   print test_drone.current_weight
+   print test_drone
 
