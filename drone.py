@@ -5,6 +5,12 @@ class Drone(object):
       self.max_weight = max_weight
       self.payload = []
 
+   def __str__(self):
+      payload_str = 'None' if 0 == len(self.payload) else ', '.join([str(x) for x in self.payload])
+      return "Drone\t[Location %d, %d] [Weight %d of %d]\n\t[Payload %s]" % \
+            (     self.location[0], self.location[1],
+                  self.current_weight, self.max_weight, payload_str)
+
    def add_item(self, item, from_warehouse):
       if self.current_weight + item.weight > self.max_weight:
          raise ValueError('drone payload weight exceeded')

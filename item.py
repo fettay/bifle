@@ -3,3 +3,5 @@ class Item(object):
       self.id = id
       self.weight = weight
 
+   def __str__(self):
+      return "Item [ID %d] [Weight %d]" % (self.id, self.weight)
