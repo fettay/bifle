@@ -1,5 +1,7 @@
 from order import Order
 from warehouse import Warehouse
+from drone import Drone
+from item import Item
 DEBUG = False
 
 def read_input_file(file_name):
@@ -50,7 +52,7 @@ def read_input_file(file_name):
       return (rows, cols), \
             drones, turns, max_payload, \
             warehouse_locations, warehouse_stock, \
-            order_locations, order_items
+            order_locations, order_items, product_weights
 
 def write_output_file(file_name, data):
    """
@@ -71,7 +73,7 @@ def populate_orders(order_locations, order_items):
       :param order_items
       return list of orders
    """
-   id_ = 0
+   id_ = -1
    items = []
    for l, i in zip(order_locations, order_items):
       id_ += 1
@@ -85,10 +87,31 @@ def populate_warehouses(warehouse_locations, warehouse_stock):
    :param warehouses_stock
    return list of warehouses
    """
-   id_ = 0
+   id_ = -1
    items = []
    for l, s in zip(warehouse_locations, warehouse_stock):
       id_ += 1
       items.append(Warehouse(id, l , s))
    return items
+
+def populate_drones(drones, max_payload, warehouse):
+   items = []
+   for i in xrange(drones):
+      items.append(Drone(max_payload, warehouse.position))
+   return items
+
+def populate_items(product_weights):
+   items = []
+   for i, j in enumerate(product_weights):
+      items.append(Item(i, j))
+   return items
+
+def populate_all(input_file):
+   data = read_input_file(input_file)
+   items = populate_items(data[8])
+   orders = populate_orders(data[6], items)
+   warehouses = populate_warehouses(data[4], data[5])
+   drones = populate_drones(data[1], data[3], warehouses[0])
+   items = populate_items(data[8])
+   return orders, warehouses, drones, items
 

@@ -10,6 +10,9 @@ if __name__ == "__main__":
    read_input_file('data/redundancy.in')
    liste = populate_warehouses(data[4], data[5])
 
+   orders, warehouses, drones, items = populate_all('data/busy_day.in')
+
+
    test_item = Item(123, 100)
    test_item2 = Item(123, 1)
    test_drone = Drone(200)
